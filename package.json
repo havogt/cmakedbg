@@ -1,0 +1,130 @@
+{
+  "name": "cmakedbg",
+  "displayName": "CMake Debug",
+  "version": "0.0.1",
+  "publisher": "havogt",
+  "description": "Extension for cmakedbg.",
+  "author": {
+    "name": "Hannes Vogt",
+    "email": "hannes@havogt.de"
+  },
+  "license": "BSD-3",
+  "engines": {
+    "vscode": "^1.49.0"
+  },
+  "categories": [
+    "Debuggers"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/havogt/cmakedbg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/havogt/cmakedbg/issues"
+  },
+	"scripts": {
+		"prepublish": "tsc -p ./src",
+		"compile": "tsc -p ./src",
+		"tslint": "tslint ./src/**/*.ts",
+		"watch": "tsc -w -p ./src",
+		"test": "mocha -u tdd ./out/tests/",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"package": "vsce package",
+		"publish": "vsce publish"
+	},
+	"dependencies": {
+		"await-notify": "1.0.1",
+		"vscode-debugadapter": "1.38.0-pre.4"
+	},
+	"devDependencies": {
+		"@types/node": "10.12.12",
+		"@types/mocha": "5.2.7",
+		"typescript": "3.5.3",
+		"mocha": "6.2.0",
+		"vscode": "1.1.36",
+		"vscode-debugadapter-testsupport": "1.37.0",
+		"tslint": "5.18.0",
+		"vsce": "1.66.0"
+	},
+  "main": "./out/extension",
+  "activationEvents": [
+		"onDebug"
+	],
+  "contributes": {
+    "configuration":{
+      "type": "object",
+      "title": "cmakedbg",
+      "properties": {
+        "cmakedbg.executable" :{
+          "type":"string",
+          "default":"cmakedbg",
+          "description": "The path to the cmakedbg executable, e.g. /usr/bin/cmakedbg"
+        }
+      }
+    },
+    "breakpoints": [
+      {
+        "language": "cmake"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "cmake",
+        "label": "CMake Debug",
+        "program": "/home/vogtha/git/cmake/build/code/bin/cmakedbg",
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "sourceDirectory": {
+                "type": "string",
+                "description": "Source directory of the CMake project.",
+                "default": "${workspaceFolder}"
+              },
+              "buildDirectory": {
+                "type": "string",
+                "description": "Build directory of the CMake project.",
+                "default": "${workspaceFolder}/build"
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after launch.",
+                "default": true
+              },
+              "trace": {
+                "type": "boolean",
+                "description": "Enable logging of the Debug Adapter Protocol.",
+                "default": true
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "cmake",
+            "request": "launch",
+            "name": "Ask for file name",
+            "program": "${workspaceFolder}",
+            "stopOnEntry": true
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "CMake Debug: Launch",
+            "description": "A new configuration for 'debugging' a user CMake file.",
+            "body": {
+              "type": "cmake",
+              "request": "launch",
+              "name": "Ask for file name",
+              "program": "^\"\\${workspaceFolder}/\"",
+              "stopOnEntry": true
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
