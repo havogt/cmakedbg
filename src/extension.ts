@@ -62,9 +62,9 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
         // use the executable specified in the package.json if it exists or determine it based on some other information (e.g. the session)
         
         
-        const command = "/home/vogtha/git/cmake/build/code/bin/cmakedbg";
+        const command = "/home/vogtha/git/cmake/build/code/bin/cmake";
         // const args = _session.configuration.args;
-        const args = [
+        const args = [ "--dap",
             "-B", _session.configuration.buildDirectory, "-S" , _session.configuration.sourceDirectory,
         ];
         const options = {
