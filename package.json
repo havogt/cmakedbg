@@ -79,6 +79,11 @@
               "program"
             ],
             "properties": {
+              "args": {
+                "type": "array",
+                "description": "Extra CMake arguments.",
+                "default": ""
+              },
               "sourceDirectory": {
                 "type": "string",
                 "description": "Source directory of the CMake project.",

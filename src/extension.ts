@@ -64,9 +64,9 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
         
         const command = "/home/vogtha/git/cmake/build/code/bin/cmake";
         // const args = _session.configuration.args;
-        const args = [ "--dap",
+        const args = [ "--dap"].concat( _session.configuration.args).concat([
             "-B", _session.configuration.buildDirectory, "-S" , _session.configuration.sourceDirectory,
-        ];
+        ]);
         const options = {
             // cwd: "working directory for executable",
             // env: { "VAR": "some value" }
