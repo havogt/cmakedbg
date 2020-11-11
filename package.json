@@ -58,8 +58,8 @@
       "properties": {
         "cmakedbg.executable": {
           "type": "string",
-          "default": "cmakedbg",
-          "description": "The path to the cmakedbg executable, e.g. /usr/bin/cmakedbg"
+          "default": "cmake",
+          "description": "The path to the cmake executable with debug support, e.g. /usr/bin/cmake"
         }
       }
     },
@@ -72,11 +72,10 @@
       {
         "type": "cmake",
         "label": "CMake Debug",
-        "program": "/home/vogtha/git/cmake/build/code/bin/cmake",
         "configurationAttributes": {
           "launch": {
-            "required": [
-              "program"
+            "required": ["sourceDirectory",
+              "buildDirectory"
             ],
             "properties": {
               "args": {
@@ -111,20 +110,22 @@
           {
             "type": "cmake",
             "request": "launch",
-            "name": "Ask for file name",
-            "program": "${workspaceFolder}",
+            "name": "CMake Debug: Launch",
+            "sourceDirectory": "${workspaceFolder}",
+            "buildDirectory": "${workspaceFolder}/build",
             "stopOnEntry": true
           }
         ],
         "configurationSnippets": [
           {
             "label": "CMake Debug: Launch",
-            "description": "A new configuration for 'debugging' a user CMake file.",
+            "description": "A new configuration for 'debugging' a CMake project.",
             "body": {
               "type": "cmake",
               "request": "launch",
-              "name": "Ask for file name",
-              "program": "^\"\\${workspaceFolder}/\"",
+              "name": "CMake Debug: Launch",
+              "sourceDirectory": "^\"\\${workspaceFolder}/\"",
+              "buildDirectory": "^\"\\${workspaceFolder}/build\"",
               "stopOnEntry": true
             }
           }
